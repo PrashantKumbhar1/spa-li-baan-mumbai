@@ -393,9 +393,10 @@
             display: flex;
             gap: 2.5rem;
             overflow-x: auto;
-            scroll-snap-type: x mandatory;
+            scroll-snap-type: none;
             padding-bottom: 3rem;
             scrollbar-width: none;
+            will-change: transform;
         }
         
         .services-scroll::-webkit-scrollbar {
@@ -404,7 +405,6 @@
         
         .ritual-item {
             flex: 0 0 420px;
-            scroll-snap-align: start;
             position: relative;
             border-radius: 30px;
             overflow: hidden;
@@ -612,9 +612,10 @@
             display: flex;
             gap: 3rem;
             overflow-x: auto;
-            scroll-snap-type: x mandatory;
+            scroll-snap-type: none;
             padding-bottom: 2rem;
             scrollbar-width: none;
+            will-change: transform;
         }
         
         .testimonial-scroll::-webkit-scrollbar {
@@ -623,7 +624,6 @@
         
         .testimonial-card {
             flex: 0 0 480px;
-            scroll-snap-align: start;
             background: rgba(237, 230, 216, 0.08);
             border-radius: 32px;
             padding: 3rem;
@@ -690,7 +690,7 @@
             text-align: center; 
             transition: all 0.4s ease;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             scroll-snap-align: center;
             background: linear-gradient(
                 180deg,
@@ -726,14 +726,17 @@
         
         .offer-box .tag {
             position: absolute;
-            top: -12px;
-            right: 28px;
-            background: var(--highlight);
-            color: var(--base);
-            padding: 4px 22px;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #5e9c95, #bfa46f);
+            color: #0f1c1e;
+            padding: 6px 20px;
             border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 500;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
         
         .offer-price {
@@ -795,21 +798,19 @@
         /* Floating CTA */
         .floating-cta {
             position: fixed;
-            bottom: 40px;
-            right: 40px;
-            background: var(--accent);
-            color: var(--base);
-            width: 68px;
-            height: 68px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            box-shadow: 0 15px 35px -10px var(--glow);
+            bottom: 30px;
+            right: 30px;
+            padding: 16px 22px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #bfa46f, #e6c88f);
+            color: #0f1c1e;
+            box-shadow: 0 10px 30px rgba(191,164,111,0.4);
             z-index: 999;
-            animation: float 3s ease-in-out infinite;
             cursor: pointer;
+            animation: float 3s ease-in-out infinite;
         }
         
         @keyframes float {
@@ -1256,7 +1257,7 @@
             <!-- Offer 2 -->
             <div class="offer-box">
                 <div class="tag">COUPLE FAVOURITE</div>
-                <h3 style="font-size: 1.6rem;">Four Hands for Two</h3>
+                <h3 style="font-size: 1.6rem;">Four Hands<br>for Two</h3>
                 <div class="offer-price">₹4,999 <span style="font-size: 1rem; opacity: 0.6;">(save ₹1,000)</span></div>
                 <p style="margin-bottom: 2rem;">90-minute private four-hands session in our couple suite with champagne &amp; post-ritual lounge.</p>
                 <a onclick="openBookingModal()" style="color: #bfa46f; text-decoration: none; font-weight: 500;">Book the duet →</a>
@@ -1395,7 +1396,7 @@
     
     <!-- Floating CTA -->
     <div onclick="openBookingModal()" class="floating-cta">
-        ✺
+        Book
     </div>
     
     <!-- Booking Modal -->
@@ -1552,11 +1553,19 @@
         window.addEventListener("load", () => {
             initializeWebsite();
 
+            function duplicateContent(container) {
+                const content = container.innerHTML;
+                container.innerHTML += content;
+            }
+
             const rituals = document.querySelector('.services-scroll');
             const testimonials = document.querySelector('.testimonial-scroll');
 
-            autoScroll(rituals, 0.4);
-            autoScroll(testimonials, 0.3);
+            duplicateContent(rituals);
+            duplicateContent(testimonials);
+
+            autoScroll(rituals, 0.8);
+            autoScroll(testimonials, 0.6);
         });
 
         function autoScroll(container, speed = 0.5) {
@@ -1568,9 +1577,8 @@
                 if (!isPaused) {
                     container.scrollLeft += speed;
 
-                    // smoother infinite loop
                     if (container.scrollLeft >= container.scrollWidth / 2) {
-                        container.scrollLeft -= container.scrollWidth / 2;
+                        container.scrollLeft = 0;
                     }
                 }
                 requestAnimationFrame(scroll);
