@@ -677,6 +677,9 @@
             padding: 2rem 0;
             padding-bottom: 1rem;
             scroll-snap-type: x mandatory;
+            padding-left: 5%;
+            padding-right: 5%;
+            scroll-padding-left: 5%;
         }
         
         .offer-box {
@@ -699,6 +702,10 @@
             );
         }
         
+        .offer-box:first-child {
+            margin-left: 0.5rem;
+        }
+
         .offer-box h3 {
             font-size: 1.8rem;
             margin-bottom: 1rem;
@@ -936,12 +943,22 @@
             }
 
             .offer-box {
-                flex: 0 0 85%;
+                flex: 0 0 88%;
             }
 
             .offers-grid::-webkit-scrollbar {
                 display: none;
             }
+
+            .offers-grid {
+                padding-left: 5%;
+                padding-right: 5%;
+                scroll-padding-left: 5%;
+                justify-content: flex-start;  
+                padding-left: 16px;            
+                scroll-padding-left: 16px;
+            }
+
             
             .collage-grid {
                 display: flex;
@@ -972,8 +989,8 @@
             .floating-cta {
                 bottom: 20px;
                 right: 20px;
-                width: 58px;
-                height: 58px;
+                padding: 12px 18px;
+                font-size: 0.85rem;
             }
         }
         
@@ -1258,7 +1275,7 @@
             <div class="offer-box">
                 <div class="tag">COUPLE FAVOURITE</div>
                 <h3 style="font-size: 1.6rem;">Four Hands<br>for Two</h3>
-                <div class="offer-price">₹4,999 <span style="font-size: 1rem; opacity: 0.6;">(save ₹1,000)</span></div>
+                <div class="offer-price">₹4,999</div>
                 <p style="margin-bottom: 2rem;">90-minute private four-hands session in our couple suite with champagne &amp; post-ritual lounge.</p>
                 <a onclick="openBookingModal()" style="color: #bfa46f; text-decoration: none; font-weight: 500;">Book the duet →</a>
             </div>
